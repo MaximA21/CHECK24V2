@@ -78,6 +78,9 @@ Set up Nginx as reverse proxy to:
    - Distributed tracing
    - Request flow visualization
    - Performance bottleneck identification
+<img width="1165" alt="Screenshot 2025-02-04 at 20 03 33" src="https://github.com/user-attachments/assets/44bd4275-dc57-4d20-894a-67e3c75d0c1c" />
+
+
 
 ### Rate Limiting
 Implemented rate limiting to:
