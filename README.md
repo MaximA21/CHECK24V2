@@ -8,7 +8,7 @@ I chose EC2 (initially t2.micro, upgraded to t2.medium) over Lambda for several 
 
 - Performance Evolution:
    - Initial response times on t2.micro: ~12 seconds
-   - After vertical scaling to t2.medium: ~900ms
+   - After vertical scaling to t2.medium: ~500ms
    - This improvement validates EC2 as the right choice for compute-intensive tasks
    - Shows potential for further optimization with dedicated resources
 
@@ -71,6 +71,9 @@ Set up Nginx as reverse proxy to:
      - Resource utilization
      - Error rates
 
+<img width="2241" alt="Screenshot 2025-02-04 at 18 46 50" src="https://github.com/user-attachments/assets/bc2680d0-f5b6-4e0c-b314-2b250b3fe216" />
+
+
 ### Tempo
    - Distributed tracing
    - Request flow visualization
@@ -99,12 +102,18 @@ Initial Setup (t2.micro):
 - Stable but slow performance
 - No error issues under normal load
 
+<img width="601" alt="Screenshot 2025-02-02 at 07 24 58" src="https://github.com/user-attachments/assets/04059929-a3e6-426e-8b77-d7a90d86d06f" />
+
 Vertical Scaling (t2.medium):
+
 - Dramatic performance improvement
-- Average response time reduced to ~900ms
+- Average response time reduced to ~500ms
 - Memory-intensive operations (like algorithm calculations) benefit significantly
 
-The vertical scaling proved to be a crucial optimization, showing that the algorithm was primarily compute-bound rather than I/O-bound. The 13x performance improvement justifies the moderate increase in infrastructure cost.
+<img width="587" alt="Screenshot 2025-02-04 at 09 23 59" src="https://github.com/user-attachments/assets/ff513f96-2d05-4281-b9be-e9368ba173d8" />
+
+
+The vertical scaling proved to be a crucial optimization, showing that the algorithm was primarily compute-bound rather than I/O-bound. The 24x performance improvement justifies the moderate increase in infrastructure cost.
 
 ## Future Considerations
 
@@ -150,12 +159,12 @@ The vertical scaling proved to be a crucial optimization, showing that the algor
      - Easier monitoring and error handling
 
 - Data Pipeline:
-   ```
-   Websites -> Crawl4AI -> DeepSeek-R3 (via Bedrock) -> Supabase
-                                                     -> S3 (Raw Data Backup)
-                                                     -> Grafana/Prometheus 
-                                                        (Monitoring)
-   ```
+
+  
+  ![Untitled Diagram drawio-3](https://github.com/user-attachments/assets/df51e8cd-675a-45e3-b429-aa9a7d7641bf)
+
+
+
    - Raw data backup in S3 for analysis
    - Extend existing monitoring stack:
      - Prometheus for metrics collection
