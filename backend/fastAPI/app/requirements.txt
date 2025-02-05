@@ -1,0 +1,11 @@
+fastapi>=0.100.0
+uvicorn>=0.22.0
+supabase>=1.0.3
+redis>=4.5.4
+pydantic>=2.0.0
+slowapi
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-instrumentation-fastapi
+opentelemetry-exporter-otlp-proto-grpc
+prometheus-fastapi-instrumentator
