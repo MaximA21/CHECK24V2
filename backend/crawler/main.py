@@ -20,7 +20,7 @@ class KickerScraper:
             time.sleep(5)
             btn2 = self.driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/div/div/div/div/div/div[3]/div[1]/div/a")
             btn2.click()
-            time.sleep(2)  # Kurz warten bis Banner weg ist
+            time.sleep(2)  
         except Exception as e:
             print(e)
 
@@ -32,14 +32,12 @@ class KickerScraper:
 
         providers = set()
 
-        # Finde zuerst die Tabelle die "Streaming" in der Überschrift hat
+        # Finde die Tabelle die "Streaming" in der Überschrift hat
         headers = soup.find_all('th')
         for header in headers:
             if header.text.strip() == "Streaming":
-                # Von der Überschrift zur Tabelle
                 streaming_table = header.find_parent('table')
                 if streaming_table:
-                    # Finde alle Bilder in dieser Tabelle
                     images = streaming_table.find_all('img')
                     for img in images:
                         if img.get('alt'):
@@ -51,16 +49,14 @@ class KickerScraper:
         self.driver.get(url)
         self.accept_cookies()
 
-        # HTML holen und mit BeautifulSoup parsen
         soup = BeautifulSoup(self.driver.page_source, 'html.parser')
 
-        # Debug: Schauen was wir tatsächlich finden
         print("Anzahl Game Lists:", len(soup.find_all(class_='kick__v100-gameList')))
 
-        # Datum aus URL extrahieren
+
         url_parts = self.driver.current_url.split('/')
         if len(url_parts) >= 2:
-            game_date = url_parts[-2]  # Vorletztes Element
+            game_date = url_parts[-2]  
 
         matches = []
         game_lists = soup.find_all(class_='kick__v100-gameList')
@@ -77,7 +73,6 @@ class KickerScraper:
 
             for game_row in game_rows:
                 try:
-                    # Game Cell finden
                     game_cell = game_row.find(class_='kick__v100-gameCell')
 
                     if game_cell:
@@ -87,7 +82,6 @@ class KickerScraper:
                             home_team = teams[0].find(class_='kick__v100-gameCell__team__name').text.strip()
                             away_team = teams[1].find(class_='kick__v100-gameCell__team__name').text.strip()
 
-                            # Zeit finden - jetzt beide Teile
                             time_element = game_cell.find(class_='kick__v100-scoreBoard')
                             print(time_element)
                             if time_element:
@@ -97,7 +91,7 @@ class KickerScraper:
                                     for time_part in time_parts:
                                         time_part = time_part.text.strip()
                                         if time_part[0].isdigit():
-                                            game_time = time_part  # Uhrzeit
+                                            game_time = time_part 
 
                             # Vorschau-Link finden
                             link_element = game_row.find(class_='kick__v100-gameList__gameRow__stateCell')
@@ -127,13 +121,10 @@ class KickerScraper:
         self.driver.quit()
 
 
-# Test
 if __name__ == "__main__":
     scraper = KickerScraper()
     try:
-        # Heutiges Datum
         heute = datetime.now()
-        # Liste für die nächsten 7 Tage
         datums_array = [(heute + timedelta(days=i)).strftime('%d-%m-%Y') for i in range(3)]
 
         games = []
