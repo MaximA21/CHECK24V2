@@ -1,5 +1,7 @@
 # CHECK24 V2
 
+You can find the original version [here](README_v1.md).
+
 ## Infrastructure Decisions
 
 ### AWS EC2 vs Lambda Comparison
